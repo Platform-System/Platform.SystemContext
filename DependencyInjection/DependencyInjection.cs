@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Platform.SystemContext.Abstractions;
 using Platform.SystemContext.Infrastructure;
 
-namespace Platform.SystemContext.Extensions
+namespace Platform.SystemContext.DependencyInjection
 {
     public static class DependencyInjection
     {
