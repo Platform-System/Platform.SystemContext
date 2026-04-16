@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Http;
+using Platform.BuildingBlocks.Abstractions;
 using Platform.SystemContext.Abstractions;
 using System.Security.Claims;
 
 namespace Platform.SystemContext.Infrastructure
 {
-    public class UserContext : IUserContext
+    public class UserContext : IUserContext, ICurrentUserProvider
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         public UserContext(IHttpContextAccessor httpContextAccessor)
@@ -28,6 +29,7 @@ namespace Platform.SystemContext.Infrastructure
         public string? UserName =>
             User?.FindFirst("preferred_username")?.Value
             ?? User?.Identity?.Name;
+        public string? CurrentUserId => UserId?.ToString();
         public bool IsAuthenticated => User?.Identity?.IsAuthenticated == true;
         
     }
