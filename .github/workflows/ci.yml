@@ -1,4 +1,4 @@
-name: SystemContext CI
+name: CI
 
 on:
   push:
@@ -11,5 +11,6 @@ jobs:
     with:
       project_path: 'Platform.SystemContext.csproj'
       dependencies: 'Platform-System/Platform.BuildingBlocks'
+
 
 
