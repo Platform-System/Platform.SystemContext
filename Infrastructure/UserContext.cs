@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Platform.BuildingBlocks.Abstractions;
 using Platform.SystemContext.Abstractions;
 using System.Security.Claims;
+using System.Linq;
 
 namespace Platform.SystemContext.Infrastructure
 {
@@ -30,6 +31,14 @@ namespace Platform.SystemContext.Infrastructure
             User?.FindFirst("preferred_username")?.Value
             ?? User?.Identity?.Name;
         public string? CurrentUserId => UserId?.ToString();
+        public IReadOnlyCollection<string> Roles =>
+            User?.FindAll(ClaimTypes.Role).Select(x => x.Value)
+                .Concat(User?.FindAll("role").Select(x => x.Value) ?? [])
+                .Concat(User?.FindAll("roles").Select(x => x.Value) ?? [])
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray()
+            ?? [];
+        public bool IsInRole(string role) => Roles.Any(x => string.Equals(x, role, StringComparison.OrdinalIgnoreCase));
         public bool IsAuthenticated => User?.Identity?.IsAuthenticated == true;
         
     }
