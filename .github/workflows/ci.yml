@@ -6,11 +6,12 @@ on:
 
 jobs:
   build:
-    uses: Platform-System/Platform.CI-CD/.github/workflows/dotnet-build-template.yml@main
+    uses: Platform-System/Platform.CI-CD/.github/workflows/build-dotnet.yml@main
     secrets: inherit
     with:
       project_path: 'Platform.SystemContext.csproj'
       dependencies: 'Platform-System/Platform.BuildingBlocks'
+
 
 
 
